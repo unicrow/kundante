@@ -1,0 +1,1 @@
+Kundante — Simple HTML/CSS/JavaScript Boilerplate for Front-End Projects
