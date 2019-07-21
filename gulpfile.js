@@ -9,6 +9,8 @@ const concat = require('gulp-concat');
 const plumber = require("gulp-plumber");
 const autoprefixer = require('gulp-autoprefixer');
 const del = require("del");
+const fileInclude = require("gulp-file-include");
+const htmlbeautify = require('gulp-html-beautify');
 
 // BrowserSync
 function browserSync(done) {
@@ -81,12 +83,17 @@ function scripts() {
   );
 }
 
-// Copy HTML Files
+// Generate HTML Files
 function html() {
 	return (
 		gulp
-		.src('src/**/*.html')
-		.pipe(gulp.dest('dist'))
+		.src('src/*.html')
+		.pipe(fileInclude({
+			prefix: "@@",
+			basepath: "@file"
+		}))
+		.pipe(htmlbeautify({indent_size: 2}))
+		.pipe(gulp.dest("dist"))
 		.pipe(browsersync.stream())
 	);
 };
